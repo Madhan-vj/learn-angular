@@ -1,0 +1,123 @@
+<p>form works!</p>
+<form [formGroup]="userForm" (ngSubmit)="submitForm()">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="">User Name</label>
+            <input formControlName="name" type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="">E-mail</label>
+            <input formControlName="email" type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-sm-4 ">
+        <label class="col-form-label">Gender</label>
+        <div class="row">
+          <div class="form-check form-check-inline">
+            <input formControlName="Gender" class="form-check-input" type="radio" id="inlineRadio1" value="Male">
+            <label class="form-check-label">Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input formControlName="Gender" class="form-check-input" type="radio" id="inlineRadio2" value="Female">
+            <label class="form-check-label">Female</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-4" formArrayName="favfood" >
+          <label class="col-form-label">Favourite cuisine   </label>
+          <div formGroupName="0" class="form-check form-check-inline">
+            <input formControlName="indian" class="form-check-input" type="checkbox" id="inlineCheckbox1"
+              value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">indian</label>
+          </div>
+          <div formGroupName="1" class="form-check form-check-inline">
+            <input formControlName="chinese" class="form-check-input" type="checkbox" id="inlineCheckbox2"
+              value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">chinese</label>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Address</h3>
+        </div>
+        <div class="col-lg-6">
+          <button (click)="addAddress()" class="btn btn-sm btn-primary float-right">Add Address</button>
+        </div>
+      </div>
+      <div class="row" formArrayName="addresses" *ngFor="let address of userForm.get('addresses')['controls']; let i=index;" style="background-color: whitesmoke; border: 1px solid #dedede; margin-top: 15px; margin-bottom: 15px;">
+        <!-- <fa-icon icon="fa-times-circle" class="position-relative" style="left: 416px;top:-162px;"></fa-icon> -->
+        <div class="col-sm-12 text-right">
+            <button class="btn btn-primary" (click)="removeAddress(i)">Close</button>
+        </div>
+        <div [formGroupName]="i" class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="">Address Line 1</label>
+                <input formControlName="line1" name="line1" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="">Address Line 2</label>
+                <input formControlName="line2" name="line2" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row col-sm-12">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="col-form-label">Country</label>
+                  <select formControlName="country" name="country" class="form-control">
+                    <option value="IN">India</option>
+                    <option value="US">America</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="col-form-label">state</label>
+                  <select formControlName="state" name="state" class="form-control">
+                    <option value="TN">Tamilnadu</option>
+                    <option value="KL">Kerala</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="col-form-label">City</label>
+                  <select formControlName="city" name="city" class="form-control">
+                    <option value="chennai">chennai</option>
+                    <option value="kochi">kochi</option>
+                  </select>
+                </div>
+              </div>
+              <!-- <div class="col-sm-12 text-center">
+                <button class="btn btn-primary" (click)="removeAddress(i)">Close</button>
+              </div> -->
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <input type="submit" value="submit" class="btn btn-primary" [disabled]="!userForm.valid">
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+        <pre><code>{{userForm.value | json}}</code></pre>
+        <pre><code>{{userForm.valid | json}}</code></pre>
+    </div>
+  </div>
+</form>
